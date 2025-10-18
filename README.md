@@ -24,12 +24,11 @@
 **Quick Navigation:**
 - [📊 Project Overview](#-project-overview)
 - [🏗️ Architecture](#️-architecture)
-- [🎯 Data Engineering Concepts](#-data-engineering-concepts)
+- [🎯 Skills & Concepts](#-skills--concepts)
 - [💻 Technology Stack](#-technology-stack)
 - [📁 Repository Structure](#-repository-structure)
 - [🔄 Pipeline Components](#-pipeline-components)
 - [📈 Performance & Optimization](#-performance--optimization)
-- [🎓 Data Engineering Skills](#-data-engineering-skills-showcase)
 - [🔐 Data Governance](#-data-governance--security)
 - [📚 Technical References](#-technical-references)
 
@@ -37,34 +36,31 @@
 
 ## 📊 Project Overview
 
-This project implements an **enterprise-scale data engineering pipeline** that transforms raw cryptocurrency market data into actionable financial analytics through a sophisticated **multi-layer medallion architecture**. The pipeline processes **5,475+ historical records** spanning January 2020 to present across Bitcoin (BTC), Ethereum (ETH), and Dogecoin (DOGE).
+Enterprise-scale **ETL/ELT data pipeline** transforming raw cryptocurrency market data into actionable financial analytics through **medallion architecture**. Processes **5,475+ historical records** spanning January 2020 to present across Bitcoin (BTC), Ethereum (ETH), and Dogecoin (DOGE).
 
-### **Business Context**
+### **Business Challenge & Solution**
 
-**Challenge:** Cryptocurrency markets generate fragmented, high-volume time-series data requiring sophisticated ETL patterns for reliable analytics. Traditional approaches struggle with data quality, incremental processing, and cost optimization at scale.
+**Problem:** Cryptocurrency markets generate fragmented, high-volume time-series data requiring sophisticated ETL patterns for reliable analytics. Traditional approaches struggle with data quality, incremental processing, and cost optimization.
 
-**Solution:** A production-grade ELT pipeline implementing:
-- **Medallion architecture** (Bronze → Silver → Gold) for clear data lineage and independent layer optimization
+**Solution Delivered:**
+- **Medallion architecture** (Bronze → Silver → Gold) for clear data lineage
 - **Change Data Capture (CDC)** using Snowflake Streams for incremental processing
-- **Event-driven orchestration** with Snowflake Tasks eliminating unnecessary compute cycles
-- **Dynamic resource management** achieving 70-90% cost optimization
+- **Event-driven orchestration** with Snowflake Tasks
+- **Dynamic resource management** with auto-scaling warehouses
 
-### **Key Achievements**
+### **Key Results**
 
-| Metric | Achievement | Technology |
-|--------|-------------|------------|
-| 💰 **Cost Optimization** | 70-90% reduction in compute costs | Dynamic warehouse auto-scaling |
-| ⚡ **Processing Efficiency** | 80%+ reduction in compute overhead | CDC-based incremental processing |
-| ✅ **Data Quality** | 99.9%+ accuracy maintained | Automated validation framework |
-| 🔄 **Automation** | Fully automated pipeline execution | Event-driven task orchestration |
-| 📊 **Data Volume** | 5,475+ daily records processed | 3 cryptocurrencies × 5+ years |
-| ⏱️ **Processing Cycle** | 4-hour batch intervals | Scheduled task execution |
+| Metric | Achievement |
+|--------|-------------|
+| 💰 **Cost Optimization** | 70-90% reduction through dynamic warehouse auto-scaling |
+| ⚡ **Processing Efficiency** | 80%+ compute reduction via CDC-based incremental processing |
+| ✅ **Data Quality** | 99.9%+ accuracy with automated validation |
+| 🔄 **Automation** | Fully automated pipeline with event-driven execution |
+| 📊 **Data Volume** | 5,475+ records (3 cryptocurrencies × 5+ years) |
 
 ---
 
 ## 🏗️ Architecture
-
-### **System Architecture Overview**
 
 ![Architecture Diagram](assets/Architecture_diagram.png)
 
@@ -159,112 +155,65 @@ graph TB
 
 ---
 
-## 🎯 Data Engineering Concepts
+## 🎯 Skills & Concepts
 
-This pipeline demonstrates comprehensive implementation of modern data engineering principles and patterns:
+### **Data Engineering Competencies**
 
-### **Core Architectural Patterns**
+| Skill Area | Implementation |
+|-----------|----------------|
+| **ETL/ELT Development** | Python extraction → S3 staging → Snowflake transformation. Batch processing with 4-hour cycles |
+| **Data Warehousing** | Snowflake cloud DW with columnar storage, auto-clustering, result caching |
+| **Medallion Architecture** | Three-tier lakehouse (Bronze/Silver/Gold) with clear lineage |
+| **Change Data Capture** | Snowflake Streams track INSERT/UPDATE/DELETE, 80%+ compute reduction |
+| **Workflow Orchestration** | Snowflake Tasks with DAG dependencies, conditional execution |
+| **Data Modeling** | Star schema with fact tables, dimensional modeling for analytics |
+| **Distributed Processing** | Snowpark DataFrames with lazy evaluation across virtual warehouse nodes |
+| **Dynamic Resource Mgmt** | Auto-scaling warehouses (XSMALL → LARGE → XSMALL) saving 70-90% costs |
 
-| Concept | Implementation Details | Business Impact |
-|---------|----------------------|-----------------|
-| **ETL/ELT Pipeline** | Python-based extraction → S3 staging → Snowflake transformation with SQL/Snowpark. Implements ELT pattern where raw data is loaded first, then transformed within the warehouse | Separation of concerns, scalable processing, compute-storage independence |
-| **Data Warehousing** | Snowflake cloud data warehouse with columnar storage, automatic clustering, and result caching. Supports unlimited concurrent queries and elastic scaling | Enterprise-grade analytics platform with sub-second query performance |
-| **Medallion Architecture** | Three-tier lakehouse: Bronze (raw), Silver (harmonized), Gold (analytics). Each layer serves distinct purposes with clear data lineage | Independent optimization per layer, easier debugging, reusable silver layer |
-| **Change Data Capture** | Snowflake Streams track INSERT/UPDATE/DELETE operations. Tasks execute only when streams detect changes, eliminating full table scans | 80%+ compute reduction by processing only changed data |
-| **Workflow Orchestration** | Snowflake Tasks with DAG dependencies using AFTER clause. Conditional execution based on stream state eliminates wasteful processing | Fully automated pipeline with intelligent execution, zero manual intervention |
-| **Incremental Processing** | MERGE operations (upserts) instead of DELETE+INSERT. Processes only new/changed records identified by CDC streams | Efficient data updates, maintains history, reduces processing time |
-| **Data Modeling** | Star schema with fact tables and dimension tables. Denormalized for query performance with daily, weekly, and monthly aggregations | Optimized for analytical workloads, sub-second query response times |
-| **Data Quality** | Schema validation, duplicate detection, null rate monitoring, statistical outlier detection at each pipeline layer | Maintains 99.9%+ data accuracy with automated validation |
-| **Distributed Processing** | Snowpark Python DataFrames with lazy evaluation. Distributed execution across Snowflake virtual warehouse nodes | Handles large datasets efficiently with automatic parallelization |
-| **Dynamic Resource Mgmt** | Warehouse auto-scaling: XSMALL for idle → LARGE for heavy loads → XSMALL after completion. Automatic suspend/resume | 70-90% cost savings through intelligent compute allocation |
+### **Technical Implementation**
 
-### **Advanced Implementation Techniques**
-
-**Multi-Language Processing Strategy**
-- **SQL**: Set-based transformations, window functions, aggregations (optimal for bulk operations)
-- **Python (Snowpark)**: Complex business logic, statistical calculations, DataFrame operations
-- **JavaScript**: Stored procedures for procedural logic, loops, and complex control flow
+**Multi-Language Strategy**
+- **SQL**: Window functions, aggregations, set-based transformations
+- **Python (Snowpark)**: Complex business logic, statistical calculations, DataFrames
+- **JavaScript**: Stored procedures for procedural logic and bulk operations
 
 **Event-Driven Architecture**
-- Stream-based triggers eliminate polling
-- Conditional task execution reduces unnecessary runs
-- DAG dependencies ensure proper execution order
-- Multi-stream OR logic for parallel source monitoring
+- Stream-based CDC triggers (no polling)
+- Conditional task execution (process only when data changes)
+- Multi-stream OR logic for parallel monitoring
+- DAG dependencies ensure execution order
 
 **Data Quality Framework**
 - Automated schema detection and validation
-- Case-insensitive column mapping
 - Type inference and conversion
-- Duplicate removal and deduplication logic
+- Duplicate detection with deduplication
+- Case-insensitive column mapping
 - Statistical profiling for anomaly detection
 
 ---
 
 ## 💻 Technology Stack
 
-### **Platform & Infrastructure**
+| Technology | Purpose |
+|-----------|---------|
+| **Snowflake Data Cloud** | Cloud data warehouse (storage, compute, orchestration) |
+| **Snowpark for Python** | Distributed processing and DataFrame transformations |
+| **AWS S3** | Data lake for CSV staging |
+| **Python 3.8+** | Data extraction, ETL logic, UDFs |
+| **SQL** | Data transformations, analytics, schema management |
+| **JavaScript** | Stored procedures for complex loading operations |
+| **Git & GitHub Actions** | Version control and CI/CD automation |
 
-<div align="center">
+### **Snowflake Components**
 
-| Technology | Version/Type | Purpose | Usage in Pipeline |
-|------------|--------------|---------|-------------------|
-| **Snowflake Data Cloud** | Enterprise | Cloud Data Warehouse | Core platform for storage, compute, and orchestration |
-| **Snowpark for Python** | Latest | Distributed Processing | DataFrame transformations, business logic |
-| **AWS S3** | Standard | Data Lake | Staging area for raw CSV files from API |
-| **Python** | 3.8+ | Programming Language | Data extraction scripts, ETL logic, UDFs |
-| **SQL** | ANSI SQL | Query Language | Data transformations, analytics, schema definitions |
-| **JavaScript** | ES6 | Scripting | Stored procedures for complex loading operations |
-| **Git** | 2.x | Version Control | Code versioning and collaboration |
-| **GitHub Actions** | - | CI/CD | Automated deployment and notebook updates |
-
-</div>
-
-### **Snowflake-Specific Components**
-
-| Component | Purpose | Implementation |
-|-----------|---------|----------------|
-| **External Stages** | Connect to AWS S3 | Points to S3 bucket for CSV file ingestion |
-| **Snowflake Streams** | Change Data Capture | 4 streams tracking changes across Bronze and Silver layers |
-| **Snowflake Tasks** | Workflow Orchestration | 3 tasks in DAG: LOAD → HARMONIZE → UPDATE_ANALYTICS |
-| **Virtual Warehouses** | Compute Resources | Auto-scaling warehouse with dynamic sizing |
-| **Snowflake Secrets** | Credential Management | Secure storage for API keys, AWS credentials, GitHub tokens |
-| **Git Integration** | Version Control | Repository linked to Snowflake for notebook deployment |
-| **Notebooks** | Development Environment | 5 Snowflake notebooks for pipeline components |
-
-### **Data Engineering Skills Demonstrated**
-
-**Core Competencies:**
-- ETL/ELT Pipeline Design & Development
-- Data Warehousing (Snowflake)
-- Data Modeling (Medallion, Star Schema)
-- Change Data Capture (CDC)
-- Workflow Orchestration (Task DAGs)
-- Distributed Computing (Snowpark)
-- SQL Query Optimization
-- Python Programming
-- Multi-Language Development
-
-**Technical Proficiencies:**
-- Batch Processing & Scheduling
-- Incremental Data Loading
-- MERGE Operations (Upserts)
-- Window Functions & Aggregations
-- Data Quality Engineering
-- Schema Design & Evolution
-- API Integration
-- Cloud Storage (AWS S3)
-- Version Control (Git)
-- CI/CD Automation
-
-**Snowflake Expertise:**
-- Virtual Warehouse Management
-- External Stage Configuration
-- Stream-based CDC
-- Task Orchestration
-- Stored Procedures (SQL/JS)
-- Python UDFs
-- Snowpark DataFrames
-- Dynamic Resource Scaling
+| Component | Implementation |
+|-----------|----------------|
+| **External Stages** | S3 connection for CSV ingestion |
+| **Streams** | 4 CDC streams (3 raw + 1 harmonized) |
+| **Tasks** | 3-task DAG with conditional execution |
+| **Virtual Warehouses** | Auto-scaling compute (XSMALL to LARGE) |
+| **Secrets** | Credential management (API keys, AWS, GitHub) |
+| **Notebooks** | 5 development notebooks for pipeline stages |
 
 ---
 
@@ -273,417 +222,175 @@ This pipeline demonstrates comprehensive implementation of modern data engineeri
 ```
 Crypto_Analytics_Dataengineering_pipeline_CDC_Snowflake/
 │
-├── 📓 notebooks/                                      # Snowflake Notebook Pipeline
-│   │
-│   ├── 01.Yahoo_Finance_API/                          # Data Extraction Layer
-│   │   ├── 01.Yahoo_Finance_API.ipynb                 # API integration & data extraction
-│   │   └── environment.yml                            # Notebook dependencies
-│   │
-│   ├── 02.Load_raw_data_from_csv_files/               # Bronze Layer (Raw Ingestion)
-│   │   ├── 02.Load_raw_data_from_csv_files.ipynb     # Bulk loading with Snowpark
-│   │   └── environment.yml                            # Notebook dependencies
-│   │
-│   ├── 03.Data_Harmonization/                         # Silver Layer (Transformation)
-│   │   ├── 03.Data_Harmonization.ipynb                # Data standardization & UDFs
-│   │   └── environment.yml                            # Notebook dependencies
-│   │
-│   ├── 04.Data_Analytics/                             # Gold Layer (Analytics)
-│   │   └── 04.Data_Analytics.ipynb                    # Metrics, KPIs, indicators
-│   │
-│   └── 05.Task_Orchestration/                         # Orchestration Layer
-│       └── 05.Task_Orchestration.ipynb                # Task DAG & CDC automation
+├── 📓 notebooks/
+│   ├── 01.Yahoo_Finance_API/              # Data extraction
+│   ├── 02.Load_raw_data_from_csv_files/   # Bronze layer
+│   ├── 03.Data_Harmonization/             # Silver layer
+│   ├── 04.Data_Analytics/                 # Gold layer
+│   └── 05.Task_Orchestration/             # Automation
 │
-├── 🔧 scripts/                                        # Automation & Deployment
-│   ├── api_call.py                                    # Yahoo Finance data extraction
-│   ├── deploy_notebooks.sql                           # Notebook deployment (Jinja)
-│   ├── requirements-api-call.txt                      # API script dependencies
-│   ├── setup.sql                                      # Environment initialization
-│   └── teardown.sql                                   # Resource cleanup
+├── 🔧 scripts/
+│   ├── api_call.py                        # Yahoo Finance extraction
+│   ├── deploy_notebooks.sql               # Deployment automation
+│   ├── setup.sql                          # Environment setup
+│   └── teardown.sql                       # Cleanup
 │
-├── ⚙️ .github/workflows/                              # CI/CD Automation
-│   ├── deploy-crypto-pipeline.yml                     # Automated notebook deployment
-│   └── scheduled-api-call.yml                         # Scheduled API extraction (optional)
+├── ⚙️ .github/workflows/
+│   ├── deploy-crypto-pipeline.yml         # CI/CD deployment
+│   └── scheduled-api-call.yml             # Scheduled extraction
 │
-├── 🖼️ assets/                                         # Documentation Assets
-│   └── Architecture_diagram.png                       # System architecture diagram
-│
-├── 📘 00_start_here.ipynb                             # Quick Start Setup Guide
-├── 📋 requirements.txt                                # Python dependencies
-├── 🐍 environment.yml                                 # Conda environment spec
-├── 🚫 .gitignore                                      # Git ignore patterns
-└── 📖 README.md                                       # Project documentation
+└── 📘 00_start_here.ipynb                 # Quick start guide
 ```
 
 ---
 
 ## 🔄 Pipeline Components
 
-### **Component 1: Data Extraction & API Integration**
+### **1. Data Extraction**
+Extracts BTC, ETH, DOGE historical data from Yahoo Finance API via RapidAPI. Features exponential backoff, retry logic, rate limiting compliance, and direct S3 upload. Outputs CSV files to AWS S3 bucket.
 
-**Purpose:** Extract historical cryptocurrency data from Yahoo Finance API via RapidAPI
-
-**Implementation Details:**
-- Multi-cryptocurrency support (BTC, ETH, DOGE) with symbol mapping
-- Historical data retrieval from January 1, 2020 to present
-- Exponential backoff and retry logic for API resilience
-- Rate limiting compliance to avoid throttling
-- Direct upload to AWS S3 with boto3
-- Comprehensive error handling and logging
-
-**Technologies Used:** Python 3.8+, HTTP clients (requests), pandas, boto3, RapidAPI
-
-**Data Output:** CSV files in AWS S3 bucket (damg7245-crypto/raw_data/) containing BTC, ETH, and DOGE historical prices
-
-**Key Features:**
-- Handles API authentication via environment variables
-- Converts timestamps to datetime objects
-- Validates data completeness before upload
-- Implements idempotent operations (can rerun safely)
+**Technologies:** Python, pandas, boto3, HTTP clients
 
 ---
 
-### **Component 2: Bronze Layer - Raw Data Ingestion**
+### **2. Bronze Layer - Raw Ingestion**
+Loads unprocessed CSV files from S3 using Snowflake's COPY command. Automatic schema detection, type conversion (dates, floats), case-insensitive column mapping. Dynamic warehouse scaling during load.
 
-**Purpose:** Load unprocessed CSV files from S3 into Snowflake with minimal transformation
+**Technologies:** Snowpark Python, External Stages, SQL
 
-**Implementation Details:**
-- High-performance bulk loading using Snowflake's COPY command
-- Automatic schema detection with infer_schema
-- Type conversion (string dates → DATE, strings → FLOAT)
-- Case-insensitive column mapping for robustness
-- Dynamic warehouse scaling for optimal performance
-- Idempotent loading with OVERWRITE semantics
+**Data Model:** Three tables (BTC, ETH, DOGE) with date, open, high, low, close, volume, adjclose
 
-**Technologies Used:** Snowpark Python DataFrames, Snowflake External Stages, SQL DDL, Dynamic warehouse management
-
-**Data Model:** Three tables (BTC, ETH, DOGE) with columns for date (PRIMARY KEY), open, high, low, close, volume, and adjclose
-
-**Processing Logic:**
-- Schema inference and automatic type conversion
-- Explicit type conversion for data quality
-- Case-insensitive column mapping to handle variations
-- Overwrite load pattern for idempotency
-
-**Performance:** Processes 5,475+ records per execution with warehouse scaling from XSMALL → LARGE → XSMALL, completing in under 5 minutes per cryptocurrency
+**Performance:** 5,475+ records, completes in <5 minutes
 
 ---
 
-### **Component 3: Silver Layer - Data Harmonization**
+### **3. Silver Layer - Harmonization**
+Unifies raw data across cryptocurrencies. Calculates derived metrics (price changes, returns, volatility). Custom UDFs for statistical calculations. CDC streams track source changes.
 
-**Purpose:** Standardize raw data across cryptocurrencies and apply business logic
+**Technologies:** Snowpark Python, Python/SQL UDFs, JavaScript stored procedures
 
-**Implementation Details:**
-- Cross-cryptocurrency schema unification (BTC, ETH, DOGE → unified format)
-- Derived metric calculations (price changes, percentage returns)
-- Statistical computations (7-day volatility with rolling windows)
-- Price normalization for cross-crypto comparisons
-- Duplicate removal and data quality validation
-- Custom UDF development for complex calculations
+**Key Functions:**
+- **CALCULATE_VOLATILITY**: Python UDF for annualized volatility (252 trading days)
+- **NORMALIZE_CURRENCY**: SQL UDF for multi-currency price normalization
+- **HARMONIZE_CRYPTO_DATA_SP**: Orchestration stored procedure
 
-**Technologies Used:** Snowpark Python for transformations, Python UDFs, SQL UDFs, JavaScript stored procedures
+**Data Model:** Unified table with crypto_symbol, timestamp (composite key), OHLCV data, derived metrics
 
-**Key Functions Developed:**
-
-**CALCULATE_VOLATILITY (Python UDF):** Calculates annualized volatility with 252 trading days, taking array of closing prices and returning volatility percentage using daily returns, standard deviation, and annualization
-
-**NORMALIZE_CURRENCY (SQL UDF):** Normalizes prices across different currencies, supporting USD, EUR, JPY conversions
-
-**HARMONIZE_CRYPTO_DATA_SP (Stored Procedure):** Multi-language orchestration handling extraction, transformation, loading with error handling, logging, and validation
-
-**Data Model:** Unified table with composite primary key (crypto_symbol, timestamp), containing date_day, OHLCV data, and derived metrics including price changes, volatility, and normalized prices
-
-**CDC Implementation:** 3 source streams tracking changes in BTC, ETH, DOGE tables, triggered by stream data availability checks, processing incrementally via MERGE operations
-
-**Transformation Logic:**
-- Union all cryptocurrencies into single dataset
-- Apply standardized calculations across all symbols
-- Remove duplicates based on composite key
-- Add calculated metrics for downstream analytics
+**CDC:** 3 streams on source tables, MERGE-based incremental processing
 
 ---
 
-### **Component 4: Gold Layer - Analytics & Aggregation**
+### **4. Gold Layer - Analytics**
+Generates production-ready analytics with multi-timeframe aggregations (daily/weekly/monthly) and technical indicators (RSI, moving averages). Star schema with fact tables.
 
-**Purpose:** Generate production-ready analytics, KPIs, and technical indicators
+**Technologies:** SQL window functions, Python UDFs, stored procedures
 
-**Implementation Details:**
-- Multi-timeframe aggregations (daily, weekly, monthly)
-- Technical indicator calculations (RSI, Moving Averages)
-- Statistical metrics (volatility, returns, max gain/loss)
-- Performance benchmarking across cryptocurrencies
-- Materialized analytics tables for fast querying
-
-**Technologies Used:** Advanced SQL with window functions, Python UDF for RSI calculation, SQL stored procedures for batch updates, Dimensional modeling (star schema)
-
-**Data Models:**
-
-**Daily Performance:** Tracks daily metrics including open/high/low/close prices, volume, returns, volatility, moving averages (7d/30d), RSI(14), and volume changes with composite primary key (crypto_symbol, date_day)
-
-**Weekly Performance:** Aggregates 7-day metrics including open/high/low/close prices, average volume, weekly returns and volatility, average RSI with composite primary key (crypto_symbol, week_start_date)
-
-**Monthly Performance:** Tracks monthly metrics including open/high/low/close prices, average volume, monthly returns and volatility, max daily gain/loss with composite primary key (crypto_symbol, month_start_date)
+**Analytics:**
+- Daily performance with RSI(14), MA(7,30), volatility
+- Weekly 7-day rolling metrics
+- Monthly performance with max gain/loss
 
 **Technical Indicators:**
 
-| Indicator | Calculation Method | Business Use Case |
-|-----------|-------------------|-------------------|
-| **RSI (14-day)** | Relative Strength Index using 14-day window | Identify overbought (>70) and oversold (<30) conditions |
-| **MA (7-day)** | Simple Moving Average over 7 days | Short-term trend identification |
-| **MA (30-day)** | Simple Moving Average over 30 days | Long-term trend identification |
-| **Volatility** | Rolling 7-day standard deviation, annualized | Risk assessment and portfolio management |
-| **Daily Return %** | (Close - Open) / Open * 100 | Performance tracking |
-
-**Analytics Views:** Consolidated performance summary with latest prices and changes, RSI signals (Overbought/Oversold/Neutral), trend signals (Above/Below moving averages), and max gains/losses
-
-**CDC Implementation:** 1 source stream on CRYPTO_HARMONIZED table, triggered by stream data availability, processing incrementally with MERGE updates
+| Indicator | Purpose |
+|-----------|---------|
+| RSI (14-day) | Overbought/oversold signals |
+| MA (7-day) | Short-term trends |
+| MA (30-day) | Long-term trends |
+| Volatility | Risk assessment |
 
 ---
 
-### **Component 5: Orchestration & Automation**
+### **5. Orchestration & Automation**
+Snowflake Tasks form DAG with conditional CDC-based execution. Tasks run only when streams detect changes, eliminating unnecessary processing.
 
-**Purpose:** Automate end-to-end pipeline execution with intelligent resource management
-
-**Implementation Details:**
-- Snowflake Tasks forming a directed acyclic graph (DAG)
-- Event-driven execution based on CDC stream state
-- Conditional processing using SYSTEM$STREAM_HAS_DATA()
-- Multi-stream OR logic for parallel source monitoring
-- Dynamic warehouse scaling embedded in tasks
-- Comprehensive error handling and logging
-
-**Technologies Used:** Snowflake Tasks (native orchestration), Snowflake Streams (CDC mechanism), SQL stored procedures, JavaScript stored procedures, CRON scheduling
-
-**Task DAG Architecture:**
-
-```mermaid
-graph TD
-    A[⏰ LOAD_CRYPTO_TASK<br/>Schedule: 0 */4 * * * UTC<br/>Every 4 Hours] 
-    
-    B{📊 Stream Check<br/>RAW_CRYPTO_STREAM_BTC<br/>OR RAW_CRYPTO_STREAM_ETH<br/>OR RAW_CRYPTO_STREAM_DOGE}
-    
-    C[🔄 HARMONIZE_CRYPTO_TASK<br/>Dependencies: AFTER LOAD_CRYPTO_TASK<br/>Condition: SYSTEM$STREAM_HAS_DATA]
-    
-    D{📊 Stream Check<br/>CRYPTO_HARMONIZED_STREAM}
-    
-    E[📈 UPDATE_ANALYTICS_TASK<br/>Dependencies: AFTER HARMONIZE_CRYPTO_TASK<br/>Condition: SYSTEM$STREAM_HAS_DATA]
-    
-    A -->|Executes & Loads Data| B
-    B -->|Changes Detected| C
-    B -->|No Changes| F[⏭️ Skip Downstream]
-    C -->|Writes Harmonized| D
-    D -->|Changes Detected| E
-    D -->|No Changes| G[⏭️ Skip Analytics]
-    E -->|Completes| H[✅ Pipeline Complete]
-    
-    style A fill:#4CAF50,stroke:#333,color:#fff
-    style C fill:#2196F3,stroke:#333,color:#fff
-    style E fill:#FF9800,stroke:#333,color:#fff
-    style B fill:#FFC107,stroke:#333,color:#000
-    style D fill:#FFC107,stroke:#333,color:#000
-```
-
-**Task Definitions:**
-
-**Task 1 - Data Loading:** Scheduled every 4 hours using CRON, calls JavaScript stored procedure for bulk data loading from S3 via external stage
-
-**Task 2 - Harmonization:** Depends on Task 1 completion, executes when any raw crypto stream has data (BTC OR ETH OR DOGE), calls Python stored procedure for data transformation
-
-**Task 3 - Analytics Update:** Depends on Task 2 completion, executes when harmonized stream has data, calls SQL stored procedure for metrics calculation
+**Task Chain:**
+1. **LOAD_CRYPTO_TASK** (every 4 hours) → Loads from S3
+2. **HARMONIZE_CRYPTO_TASK** (when raw streams have data) → Transforms
+3. **UPDATE_ANALYTICS_TASK** (when harmonized stream has data) → Calculates metrics
 
 **Key Features:**
+- Conditional execution via `SYSTEM$STREAM_HAS_DATA()`
+- Multi-stream OR logic
+- Dynamic warehouse scaling
+- Automatic error recovery
+- Task history monitoring
 
-| Feature | Implementation | Benefit |
-|---------|---------------|---------|
-| **Dependency Management** | AFTER clause creates task chain | Ensures correct execution order |
-| **Conditional Execution** | WHEN SYSTEM$STREAM_HAS_DATA() | Eliminates unnecessary runs (80% cost reduction) |
-| **Multi-Stream Logic** | OR condition across multiple streams | Triggers on any source change |
-| **Error Recovery** | Task history tracking and retry logic | Automatic failure recovery |
-| **Resource Optimization** | Dynamic warehouse scaling in procedures | 70-90% cost savings |
-| **Monitoring** | Event tables and task history | Full observability |
-
-**Stored Procedures:**
-
-**LOAD_CRYPTO_DATA_SP:** JavaScript stored procedure implementing complex loading logic, iterating through cryptocurrency files, creating temp tables for staging, performing MERGE operations for upserts, handling errors with structured logging, returning detailed execution results
-
-**HARMONIZE_CRYPTO_DATA_SP:** Python stored procedure for data transformation, standardizing schemas, applying business rules, calculating derived metrics, validating data quality
-
-**UPDATE_CRYPTO_ANALYTICS:** SQL stored procedure for analytics generation, calculating technical indicators, aggregating multi-timeframe metrics, updating fact and dimension tables
-
-**Performance Characteristics:**
-- Execution Frequency: Every 4 hours (6 cycles/day)
-- Average Duration: 5-10 minutes per complete cycle
-- Resource Efficiency: Tasks run only when data changes
-- Failure Rate: <0.1% with automatic retry
+**Performance:** 5-10 min per cycle, <0.1% failure rate
 
 ---
 
 ## 📈 Performance & Optimization
 
-### **Performance Metrics**
+### **Metrics**
 
-| Metric | Value | Optimization Technique |
-|--------|-------|----------------------|
-| **Total Records Processed** | 5,475+ daily records | Efficient bulk loading |
-| **Processing Frequency** | Every 4 hours (6x/day) | CRON-based scheduling |
-| **End-to-End Latency** | <10 minutes per cycle | Parallel processing |
-| **Incremental Processing** | 80%+ compute reduction | CDC Streams |
-| **Cost Optimization** | 70-90% savings | Dynamic auto-scaling |
-| **Data Quality Score** | 99.9%+ accuracy | Multi-layer validation |
-| **Query Response Time** | Sub-second for analytics | Clustering & caching |
+| Metric | Value |
+|--------|-------|
+| Processing Frequency | Every 4 hours |
+| End-to-End Latency | <10 minutes |
+| Compute Reduction | 80%+ via CDC |
+| Cost Savings | 70-90% via auto-scaling |
+| Data Quality | 99.9%+ accuracy |
 
-### **Optimization Strategies**
+### **Optimization Techniques**
 
-**Dynamic Resource Management:**
-Warehouse scaling pattern automatically adjusts from XSMALL during idle periods to MEDIUM for loading and LARGE for transformation, then scales back down to XSMALL after completion, achieving 70-90% cost reduction compared to fixed sizing by paying only for compute actually used
+**Dynamic Resource Management:** Warehouse auto-scales XSMALL → LARGE → XSMALL based on workload, paying only for compute used
 
-**Change Data Capture (CDC):**
-Traditional approach requires full table scan and reload consuming 100% compute, while CDC approach processes only changed records using 10-20% compute, resulting in 80%+ reduction in processing costs through Snowflake Streams tracking changes automatically
+**CDC Incremental Processing:** Processes only changed records (10-20% compute) vs full table scans (100% compute)
 
-**Incremental Loading with MERGE:**
-Efficient upsert operation handles inserts and updates in single operation, maintains data history, faster than DELETE+INSERT pattern, implemented via MERGE statements with source-target key matching
+**MERGE Operations:** Efficient upserts maintain history, faster than DELETE+INSERT
 
-**Query Optimization:**
-Applied techniques include clustering keys on date columns for time-series queries, materialized views for complex aggregations, result caching for repeated queries, and partition pruning for date-range filters, achieving sub-second query performance on analytics tables
+**Query Optimization:** Clustering keys on date columns, materialized views, result caching
 
-**Batch Processing:**
-Strategy processes data in 4-hour intervals, balancing freshness versus cost, reducing API call frequency, allowing efficient bulk operations, minimizing warehouse start/stop cycles
+**Batch Processing:** 4-hour intervals balance freshness and cost
 
-### **Scalability Considerations**
+### **Scalability**
 
-**Horizontal Scaling:**
-- Add new cryptocurrencies by extending table structure and creating new streams
-- Enable parallel processing through multiple warehouses for concurrent loads
-- Support multi-region deployment by replicating to different Snowflake regions
+**Horizontal:** Add cryptocurrencies via table extension, parallel processing with multiple warehouses
 
-**Vertical Scaling:**
-- Warehouse size dynamically adjusts from XSMALL to LARGE based on data volume
-- Auto-scaling provides automatic adjustment during peak loads
-- Query performance enhanced by adding clustering keys as data grows
-
-**Future Enhancements:**
-- Real-time streaming with minute-level updates
-- Additional data sources (exchange APIs, social sentiment)
-- Machine learning model integration for predictions
-- Advanced analytics (correlation analysis, portfolio optimization)
-
----
-
-## 🎓 Data Engineering Skills Showcase
-
-### **Core Competencies Demonstrated**
-
-**ETL/ELT Pipeline Development**
-- ✅ Designed and implemented end-to-end ELT pipeline from data extraction to analytics
-- ✅ Batch processing with 4-hour scheduling intervals
-- ✅ Incremental data loading with CDC and MERGE operations
-- ✅ Error handling, retry logic, and data validation at each stage
-
-**Data Warehousing**
-- ✅ Snowflake cloud data warehouse implementation
-- ✅ Schema design with medallion architecture (Bronze, Silver, Gold)
-- ✅ Dimensional modeling with star schema (fact and dimension tables)
-- ✅ Query optimization with clustering keys and materialized views
-
-**Change Data Capture (CDC)**
-- ✅ Implemented Snowflake Streams for automatic change tracking
-- ✅ Event-driven processing with conditional task execution
-- ✅ Multi-stream monitoring with OR logic
-- ✅ Incremental processing achieving 80%+ compute reduction
-
-**Workflow Orchestration**
-- ✅ Snowflake Tasks forming directed acyclic graphs (DAGs)
-- ✅ Task dependencies with AFTER clauses
-- ✅ Conditional execution based on data availability
-- ✅ CRON-based scheduling for automated execution
-
-**Data Quality Engineering**
-- ✅ Multi-layer validation (schema, type, business rules)
-- ✅ Automated data profiling and anomaly detection
-- ✅ Duplicate detection and removal
-- ✅ Statistical outlier identification
-- ✅ Comprehensive logging and monitoring
-
-**Programming & Scripting**
-- ✅ Python for data extraction and transformations
-- ✅ SQL for data modeling and analytics
-- ✅ JavaScript for stored procedures
-- ✅ Bash for automation scripts
-- ✅ Multi-language integration (Python + SQL + JavaScript)
-
-**Cloud Computing**
-- ✅ AWS S3 for data lake storage
-- ✅ Snowflake cloud data warehouse
-- ✅ External stage configuration
-- ✅ Secrets management for credentials
-- ✅ IAM and security best practices
-
-**DevOps & CI/CD**
-- ✅ Git version control
-- ✅ GitHub Actions for automated deployment
-- ✅ Infrastructure as code (SQL scripts)
-- ✅ Automated notebook deployment
-- ✅ Environment management
-
-### **Technical Proficiencies**
-
-**Snowflake Expertise:** Virtual warehouse management and auto-scaling, Snowpark Python DataFrame API, Snowflake Streams for CDC, Snowflake Tasks for orchestration, External stages for cloud integration, Python and JavaScript UDFs, SQL and JavaScript stored procedures, Secrets management, Role-based access control (RBAC)
-
-**SQL Proficiency:** Complex window functions (LAG, LEAD, ROW_NUMBER), Advanced aggregations and GROUP BY, Common table expressions (CTEs), MERGE statements for upserts, Recursive queries, Performance optimization
-
-**Python Skills:** Snowpark DataFrame operations, pandas for data manipulation, boto3 for AWS integration, HTTP clients for API integration, Error handling and logging, Object-oriented programming
-
-**Data Modeling:** Medallion architecture (Bronze-Silver-Gold), Star schema design, Fact and dimension tables, Slowly changing dimensions (SCD), Denormalization for performance, Temporal data modeling
+**Vertical:** Dynamic warehouse sizing based on load, auto-scaling during peaks
 
 ---
 
 ## 🔐 Data Governance & Security
 
-### **Data Quality Framework**
+### **Data Quality**
+- Automated schema detection and type validation
+- Duplicate detection and removal
+- Null rate monitoring
+- Statistical outlier detection
+- Achieved: 99.9%+ accuracy, <0.1% duplicates
 
-**Schema Validation:** Automatic schema detection with infer_schema, type validation and conversion, column name standardization (case-insensitive mapping), missing value detection and handling
+### **Security**
+- Role-based access control (CRYPTO_ROLE)
+- Snowflake Secrets for credentials (API keys, AWS, GitHub tokens)
+- Encryption at rest and in transit
+- No plaintext passwords in code
 
-**Data Profiling:** Statistical analysis of numeric columns, null rate monitoring across all fields, cardinality checks for categorical data, distribution analysis for outlier detection
-
-**Validation Rules:** Date range validation (2020-01-01 to present), price reasonability checks (no negative values), volume threshold validation, cross-field consistency checks
-
-**Quality Metrics:** 99.9%+ data accuracy maintained, <0.1% duplicate rate, <1% null rate in critical fields, 100% schema compliance
-
-### **Security & Access Control**
-
-**Authentication & Authorization:** Role-based access control with dedicated CRYPTO_ROLE, granular permissions on warehouses, databases, and schemas, principle of least privilege enforcement
-
-**Secrets Management:** Snowflake Secrets for sensitive data including GitHub tokens, API keys, and AWS credentials, no plaintext passwords in code or configuration
-
-**Encryption:** Data encrypted at rest (Snowflake default), data encrypted in transit (TLS/SSL), credentials stored in Snowflake Secrets, secure API communication
-
-### **Audit & Compliance**
-
-**Logging:** Event tables for comprehensive audit trail, task execution history, query history with user attribution, stream offset tracking
-
-**Monitoring:** Task execution monitoring via INFORMATION_SCHEMA.TASK_HISTORY, stream lag and consumption tracking, warehouse utilization metrics, query performance analysis
-
-**Data Lineage:** Bronze → Silver → Gold transformation tracked, source-to-target mapping documented, transformation logic version-controlled, full traceability of data provenance
+### **Audit & Monitoring**
+- Event tables for audit trail
+- Task execution history via INFORMATION_SCHEMA.TASK_HISTORY
+- Stream lag tracking
+- Query performance monitoring
+- Full data lineage (Bronze → Silver → Gold)
 
 ---
 
 ## 📚 Technical References
 
-### **Official Documentation**
-- [Snowflake Documentation](https://docs.snowflake.com/) - Complete platform documentation
-- [Snowpark Python Developer Guide](https://docs.snowflake.com/en/developer-guide/snowpark/python) - Distributed processing framework
-- [Snowflake Streams](https://docs.snowflake.com/en/user-guide/streams) - Change Data Capture implementation
-- [Snowflake Tasks](https://docs.snowflake.com/en/user-guide/tasks-intro) - Workflow orchestration
-- [Snowflake External Stages](https://docs.snowflake.com/en/user-guide/data-load-s3) - AWS S3 integration
+**Snowflake Documentation:**
+- [Snowflake Platform](https://docs.snowflake.com/)
+- [Snowpark Python](https://docs.snowflake.com/en/developer-guide/snowpark/python)
+- [Streams (CDC)](https://docs.snowflake.com/en/user-guide/streams)
+- [Tasks (Orchestration)](https://docs.snowflake.com/en/user-guide/tasks-intro)
 
-### **Design Patterns & Best Practices**
-- [Medallion Architecture](https://www.databricks.com/glossary/medallion-architecture) - Lakehouse design pattern
-- [Data Engineering Patterns](https://docs.snowflake.com/en/guides-overview-data-engineering) - Snowflake patterns
-- [CDC Best Practices](https://docs.snowflake.com/en/user-guide/streams-intro) - Change data capture
+**Design Patterns:**
+- [Medallion Architecture](https://www.databricks.com/glossary/medallion-architecture)
+- [CDC Best Practices](https://docs.snowflake.com/en/user-guide/streams-intro)
 
-### **API Documentation**
-- [Yahoo Finance API](https://pypi.org/project/yfinance/) - Market data API
-- [RapidAPI Documentation](https://rapidapi.com/apidojo/api/yahoo-finance1/) - API integration
-- [AWS S3 API](https://docs.aws.amazon.com/s3/) - Data lake storage
+**API Documentation:**
+- [Yahoo Finance API](https://pypi.org/project/yfinance/)
+- [AWS S3](https://docs.aws.amazon.com/s3/)
 
 ---
 
@@ -692,9 +399,5 @@ Strategy processes data in 4-hour intervals, balancing freshness versus cost, re
 **Built with Snowflake-native data engineering capabilities**
 
 *ETL • CDC • Data Warehousing • Snowpark • Orchestration*
-
----
-
-*Demonstrating production-grade data engineering skills for modern cloud data platforms*
 
 </div>
